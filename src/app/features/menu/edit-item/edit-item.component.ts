@@ -2,9 +2,9 @@ import { Component } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { map, switchMap, tap } from "rxjs/operators";
-import { BaseMenuItem, MenusStateService } from "src/app/core";
+import { BaseMenuItem } from "src/app/core";
 import { Store } from "@ngrx/store";
-import { editMenuItemFormSubmitted } from "src/app/core/state/menus";
+import { editMenuItemFormSubmitted, selectMenuItem, } from "src/app/core/state/menus";
 @Component({
   selector: "app-edit-item",
   templateUrl: "./edit-item.component.html",
@@ -21,7 +21,7 @@ export class EditItemComponent {
   menuItemId$ = this.activatedRoute.params.pipe(map((params) => params.id));
   menuItem$ = this.menuItemId$.pipe(
     tap((id) => (this._id = id)),
-    switchMap((id) => this.menusStateService.selectMenuItem$(id))
+    switchMap((id) => this.store.select(selectMenuItem({ id: id })))
   );
 
   private _id!: number;
@@ -29,7 +29,6 @@ export class EditItemComponent {
   constructor(
     private activatedRoute: ActivatedRoute,
     private location: Location,
-    private menusStateService: MenusStateService,
     private store: Store
   ) {}
 
@@ -46,5 +45,6 @@ export class EditItemComponent {
         },
       })
     );
+    this.location.back();
   }
 }
