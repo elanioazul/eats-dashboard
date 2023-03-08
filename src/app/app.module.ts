@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { StoreModule} from "@ngrx/store"
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
     }),
     AppRoutingModule,
     NavBarModule,
+    StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
