@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { appLoaded } from './core/state/menus';
 
 @Component({
 	selector: 'app-root',
@@ -7,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 	title = 'spa-angular-typescript-dashboard';
+
+	constructor(private store: Store) {}
+
+	ngOnInit(): void {
+		this.store.dispatch(appLoaded());
+	}
 }
