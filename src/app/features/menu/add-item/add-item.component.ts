@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
-import { BaseMenuItem, MenusStateService } from 'src/app/core';
+import { BaseMenuItem } from 'src/app/core';
 import { Store } from "@ngrx/store";
 import { addMenuItemFormSubmitted } from 'src/app/core/state/menus';
 
