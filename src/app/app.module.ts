@@ -8,6 +8,8 @@ import { NavBarModule } from './shared';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -23,6 +25,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     }),
     AppRoutingModule,
     NavBarModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
