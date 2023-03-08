@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenusStateService, RolesService } from 'src/app/core';
-
+import { RolesService } from 'src/app/core';
+import { Store } from "@ngrx/store";
+import { selectMenuItems } from "src/app/core/state/menus";
 @Component({
   selector: 'app-menu-items',
   templateUrl: './menu-items.component.html',
@@ -15,17 +16,15 @@ import { MenusStateService, RolesService } from 'src/app/core';
   ],
 })
 export class MenuItemsComponent {
-  menuItems$ = this.menusStateService.selectMenuItems$();
+  menuItems$ = this.store.select(selectMenuItems);
   isAdmin$ = this.rolesService.isAdmin$;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private menusStateService: MenusStateService,
-    private rolesService: RolesService
-  ) {
-    this.menusStateService.fetchMenuItems();
-  }
+    private rolesService: RolesService,
+    private store: Store
+  ) {}
 
   addMenuItem(): void {
     this.router.navigate(['add'], { relativeTo: this.activatedRoute });
