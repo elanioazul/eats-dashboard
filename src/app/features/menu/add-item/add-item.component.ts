@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { BaseMenuItem, MenusStateService } from 'src/app/core';
+import { Store } from "@ngrx/store";
+import { addMenuItemFormSubmitted } from 'src/app/core/state/menus';
 
 const MenuItemPlaceholder: BaseMenuItem = {
 	name: 'French Fries',
@@ -30,12 +32,15 @@ export class AddItemComponent {
 	menuItem = MenuItemPlaceholder;
 	constructor(
 		private location: Location,
-		private menusStateService: MenusStateService
+		private store: Store
 	) {}
 
 	submit(menu: BaseMenuItem): void {
-		this.menusStateService.addMenuItem(menu);
-		this.location.back();
+		this.store.dispatch(
+			addMenuItemFormSubmitted({
+			  menuItem: menu,
+			})
+		  );
 	}
 
 	cancel(): void {

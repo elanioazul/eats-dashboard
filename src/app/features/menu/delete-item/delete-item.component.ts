@@ -3,7 +3,8 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { MenusStateService } from 'src/app/core';
-
+import { Store } from "@ngrx/store";
+import { deleteMenuItemInitiated } from "src/app/core/state/menus";
 @Component({
   selector: 'app-delete-item',
   templateUrl: './delete-item.component.html',
@@ -20,7 +21,8 @@ export class DeleteItemComponent {
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private router: Router,
-    private menusStateService: MenusStateService
+    private menusStateService: MenusStateService,
+    private store: Store
   ) {
     // TODO: this is a workaround, once the API is wired up
     // we will need a way to emit latest from state service
@@ -28,8 +30,7 @@ export class DeleteItemComponent {
   }
 
   deleteMenuItem(id: string): void {
-    this.menusStateService.deleteMenuItem(id);
-    this.navigateHome();
+    this.store.dispatch(deleteMenuItemInitiated({ menuId: id }));
   }
 
   cancel(): void {
