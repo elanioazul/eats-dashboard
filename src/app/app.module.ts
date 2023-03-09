@@ -12,6 +12,9 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { StoreModule} from "@ngrx/store";
 import { reducers, metaReducers } from "./core/state";
 
+import { EffectsModule } from "@ngrx/effects";
+import { MenusEffects } from "./core/state/menus";
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -34,6 +37,7 @@ import { reducers, metaReducers } from "./core/state";
       maxAge: 25,
       logOnly: environment.production,
     }),
+    EffectsModule.forRoot([MenusEffects]),
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
