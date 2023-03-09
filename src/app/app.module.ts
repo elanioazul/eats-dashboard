@@ -14,6 +14,7 @@ import { reducers, metaReducers } from "./core/state";
 
 import { EffectsModule } from "@ngrx/effects";
 import { MenusEffects } from "./core/state/menus";
+import { UserEffects } from "./core/state/user";
 
 @NgModule({
   imports: [
@@ -37,7 +38,7 @@ import { MenusEffects } from "./core/state/menus";
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([MenusEffects]),
+    EffectsModule.forRoot([MenusEffects, UserEffects]),
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

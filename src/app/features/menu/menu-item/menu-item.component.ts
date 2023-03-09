@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
-import { RolesService } from 'src/app/core';
 import { Store } from "@ngrx/store";
 import { selectMenuItem } from "src/app/core/state/menus";
+
+import { selectIsAdmin } from "src/app/core/state/user";
 @Component({
   selector: 'app-menu-item',
   templateUrl: './menu-item.component.html',
@@ -16,13 +17,12 @@ export class MenuItemComponent {
   menuItem$ = this.menuItemId$.pipe(
     switchMap((id) => this.store.select(selectMenuItem({ id: id })))
   );
-  isAdmin$ = this.rolesService.isAdmin$;
+  isAdmin$ = this.store.select(selectIsAdmin);
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private rolesService: RolesService,
     private store: Store
   ) {}
 

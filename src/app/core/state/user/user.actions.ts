@@ -8,5 +8,5 @@ export const allNavbarActions = {
 
 export const userChangedFromAuth0SDK = createAction(
   "[Auth0 SDK] User Changed",
-  props<{ userDetails: Auth0User }>()
+  props<{ userDetails: Auth0User | undefined }>()
 );
