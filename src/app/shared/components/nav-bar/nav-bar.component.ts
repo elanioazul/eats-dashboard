@@ -1,7 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faHome, faUser, faUtensils } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from '@auth0/auth0-angular';
+
+import { Store } from "@ngrx/store";
+import {
+  allNavbarActions,
+  selectIsLoggedIn,
+  selectUserDetails,
+} from "src/app/core/state/user";
 
 export interface INavBarMenuLinkProps {
   to: string;
@@ -15,11 +21,10 @@ export interface INavBarMenuLinkProps {
   styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent {
-  authService = inject(AuthService);
 
   faUser = faUser;
-  isAuthenticated$ = this.authService.isAuthenticated$;
-  user$ = this.authService.user$;
+  isAuthenticated$ = this.store.select(selectIsLoggedIn);
+  user$ = this.store.select(selectUserDetails);
 
 
   navOptions: INavBarMenuLinkProps[] = [
@@ -27,11 +32,15 @@ export class NavBarComponent {
     { to: '/menu', label: 'Menu', icon: faUtensils },
   ];
 
+  constructor(
+    private store: Store
+  ) {}
+
   loginWithRedirect(): void {
-    this.authService.loginWithRedirect();
+    this.store.dispatch(allNavbarActions.loginFlowInitiated());
   }
 
   logout(): void {
-    this.authService.logout();
+    this.store.dispatch(allNavbarActions.logoutFlowInitiated());
   }
 }
