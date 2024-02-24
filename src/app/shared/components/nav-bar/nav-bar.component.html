@@ -1,5 +1,11 @@
-<nav id="nav-bar" role="navigation" aria-label="NavBar">
+<button class="open-nav-button" *ngIf="!isNavBarVisible" (click)="toggleNavBar()">
+	<fa-icon [icon]="faBars" size="lg"></fa-icon>
+</button>
+<nav id="nav-bar" [class.hidden]="!isNavBarVisible" role="navigation" aria-label="NavBar">
 	<div class="nav-bar__header">
+		<button class="close-nav-button" (click)="toggleNavBar()">
+			<fa-icon [icon]="faWindowClose" size="sm"></fa-icon>
+		</button>
 		<app-logo></app-logo>
 	</div>
 	<div class="nav-bar__menu">

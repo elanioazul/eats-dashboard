@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faHome, faUser, faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUser, faUtensils, faBars, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 import { Store } from "@ngrx/store";
 import {
@@ -23,6 +23,9 @@ export interface INavBarMenuLinkProps {
 export class NavBarComponent {
 
   faUser = faUser;
+  faBars = faBars;
+  faWindowClose = faWindowClose;
+  isNavBarVisible = true;
   isAuthenticated$ = this.store.select(selectIsLoggedIn);
   user$ = this.store.select(selectUserDetails);
 
@@ -43,4 +46,11 @@ export class NavBarComponent {
   logout(): void {
     this.store.dispatch(allNavbarActions.logoutFlowInitiated());
   }
+
+  toggleNavBar() {
+    // Toggle the visibility of the navbar
+    // You can use a boolean variable or a service to manage the state
+    // For simplicity, I'll assume you have a boolean variable `isNavBarVisible`
+    this.isNavBarVisible = !this.isNavBarVisible;
+}
 }
