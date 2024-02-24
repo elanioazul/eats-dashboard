@@ -1,5 +1,11 @@
 @import "../../../../theme/theme";
 
+.open-nav-button {
+  padding: 8px;
+  @media (min-width: 767px){
+    padding: 20px;
+  }
+}
 #nav-bar {
   display: flex;
   flex-direction: column;
@@ -25,11 +31,16 @@
   cursor: default;
 
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+
+  &.hidden {
+    display: none;
+}
 }
 
 .nav-bar__header {
   display: flex;
   justify-content: flex-start;
+  flex-direction: column;
 
   width: calc(100% - 12px);
   margin: 12px 0 12px 12px;
@@ -37,6 +48,22 @@
   font-family: $logo-font;
   font-size: 24px;
   overflow: hidden;
+
+  .close-nav-button {
+    background: none;
+    border: none;
+    color: $red;
+    cursor: pointer;
+    font-size: 24px;
+    margin-right: 12px;
+
+    display: flex;
+    justify-content: flex-end;
+
+    &:focus {
+        outline: none;
+    }
+}
 }
 
 .nav-bar__menu {
